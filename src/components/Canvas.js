@@ -6,8 +6,7 @@ import CallParserApi from "./Call-text-parse-api";
 import UploadImageToS3WithNativeSdk from "./s3_upload";
 
 
-
-const Canvas = ({sendDataToParent }) => {
+const Canvas = () => {
 
   const state = {
     color: "#000000",
@@ -45,7 +44,6 @@ const Canvas = ({sendDataToParent }) => {
       <button
         onClick={() => {
           Component.saveableCanvas.undo();
-          sendDataToParent('');
         }}
       >
         Undo
@@ -55,8 +53,6 @@ const Canvas = ({sendDataToParent }) => {
             var base64_img = Component.saveableCanvas.getDataURL()
             {UploadToS3(base64_img)}
             {updateBase64(base64_img)}
-            
-            sendDataToParent(base64_img);
           }}
         >
       Finish writing
