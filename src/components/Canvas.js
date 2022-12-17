@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import CanvasDraw from "./canvas-src";
 import classNames from "./Canvas.css";
-import UploadToS3 from "./s3_upload";
+// import UploadToS3 from "./s3_upload";
 import CallParserApi from "./Call-text-parse-api";
 import UploadImageToS3WithNativeSdk from "./s3_upload";
 
@@ -20,12 +20,6 @@ const Canvas = () => {
 
   const updateParsedEq = (my_value) => {
     setParsed_eq({equation: my_value});
-  };
-
-  const [base64, setBase64] = React.useState({val: ''});
-
-  const updateBase64 = (my_value) => {
-    setBase64({val: my_value});
   };
 
   console.log('abc123', parsed_eq.equation)
@@ -51,21 +45,19 @@ const Canvas = () => {
       <button
           onClick={() => {
             var base64_img = Component.saveableCanvas.getDataURL()
-            {UploadToS3(base64_img)}
-            {updateBase64(base64_img)}
+            {UploadImageToS3WithNativeSdk({'base64_img': base64_img, 
+                                            'updateParsedEq': updateParsedEq})}
           }}
         >
       Finish writing
       </button>
-      <UploadImageToS3WithNativeSdk my_string={base64.val}
-      />
-      <button
+      {/* <button
       onClick={() => {
         var myres = CallParserApi(updateParsedEq)
       }}
       >
         Call API to Parse
-      </button>
+      </button> */}
       
       <CanvasDraw
         ref={canvasDraw => (Component.saveableCanvas = canvasDraw)}
